@@ -48,8 +48,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DataAccess\DataContext.cs" />
+    <Compile Include="Models\AccessRole.cs" />
     <Compile Include="Models\Position.cs" />
     <Compile Include="Models\Worker.cs" />
+    <Compile Include="Models\WorkPeriod.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

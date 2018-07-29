@@ -2,7 +2,7 @@
 using System.Linq;
 using Core.Abstract;
 using Data.DataAccess;
-using System.Collections.Generic;
+using Data.Models;
 
 namespace Core.Services
 {
@@ -18,6 +18,24 @@ namespace Core.Services
         public void Dispose()
         {
             _ctx?.Dispose();
+        }
+
+        public bool IsWorkerActive(int workerId, DateTime dateTime)
+        {
+            Worker worker = _ctx.Workers.Find(workerId);
+            return worker.WorkPeriods.Any(p =>
+                p.StartDate.Date <= dateTime.Date &&
+                !p.FinishDate.HasValue || dateTime <= (p.FinishDate ?? dateTime));
+        }
+
+        public Worker GetSingleWorkerByEmail(string email)
+        {
+            return _ctx.Workers.SingleOrDefault();
+        }
+
+        public Worker GetWorkerById(int workerId)
+        {
+            return _ctx.Workers.Find(workerId);
         }
     }
 }

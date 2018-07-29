@@ -11,5 +11,7 @@ namespace Data.DataAccess
 
         public DbSet<Worker> Workers { get; set; }
         public DbSet<Position> Positions { get; set; }
+        public DbSet<AccessRole> AccessRoles { get; set; }
+        public DbSet<WorkPeriod> WorkPeriods { get; set; }
     }
 }

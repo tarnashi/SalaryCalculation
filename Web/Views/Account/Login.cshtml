@@ -1,0 +1,27 @@
+﻿@model Web.Models.LoginViewModel
+
+@{
+    ViewBag.Title = "Login";
+}
+
+<h2>Login</h2>
+
+<div>
+    @using (Html.BeginForm())
+    {
+        <div>
+            @Html.ValidationSummary()
+        </div>
+        <div>
+            @Html.LabelFor(m => m.Login)
+            @Html.TextBoxFor(m => m.Login, new { @class = "form-control" })
+        </div>
+        <div>
+            @Html.LabelFor(m => m.Password)
+            @Html.TextBoxFor(m => m.Password, new { @class = "form-control" })
+        </div>
+        <div>
+            <input type="submit" value="Login" class="btn btn-primary" />
+        </div>
+    }
+</div>

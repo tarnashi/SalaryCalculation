@@ -1,4 +1,6 @@
 ﻿using AutoMapper;
+using Core.ViewModels;
+using Data.Models;
 
 namespace Core
 {
@@ -8,7 +10,7 @@ namespace Core
         {
             var config = new MapperConfiguration(cfg =>
             {
-                //cfg.CreateMap<Worker, WorkerViewModel>().ReverseMap();
+                cfg.CreateMap<Worker, WorkerViewModel>().ReverseMap();
             });
 
             return config;

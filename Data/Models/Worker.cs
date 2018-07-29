@@ -15,9 +15,15 @@ namespace Data.Models
         [ForeignKey("Id")]
         public virtual Worker Superior { get; set; }
         [ForeignKey("SuperiorId")]
-        public virtual List<Worker> Subordinates { get; set; }
+        public virtual ICollection<Worker> Subordinates { get; set; }
 
         public string Email { get; set; }
         public string PasswordHash { get; set; }
+
+        public int PositionId { get; set; }
+        public virtual Position Position { get; set; }
+
+        public virtual ICollection<AccessRole> AccessRoles { get; set; }
+        public virtual ICollection<WorkPeriod> WorkPeriods { get; set; }
     }
 }
