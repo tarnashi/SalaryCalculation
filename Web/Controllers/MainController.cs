@@ -7,6 +7,7 @@ using Core.Abstract;
 
 namespace Web.Controllers
 {
+    [Authorize]
     public class MainController : Controller
     {
         private readonly IStaffService _staff;

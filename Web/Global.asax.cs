@@ -11,6 +11,7 @@ namespace Web
         {
             AreaRegistration.RegisterAllAreas();
             RouteConfig.RegisterRoutes(RouteTable.Routes);
+            IocConfig.ConfigureContainer();
             BundleConfig.RegisterBundles(BundleTable.Bundles);
 
             string pathDataDirectory = AppDomain.CurrentDomain.BaseDirectory;

@@ -12,7 +12,8 @@ namespace Core.ViewModels
         public string MiddleName { get; set; }
         public string Email { get; set; }
 
+        public int SeniorityFullYears { get; set; }
         public decimal Salary { get; set; }
-        public bool IsWorkNow { get; set; }
+        public bool IsWork { get; set; }
     }
 }

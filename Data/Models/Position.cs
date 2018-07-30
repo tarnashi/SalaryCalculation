@@ -14,6 +14,7 @@ namespace Data.Models
         public decimal MaxTotalSeniorityBonusСoefficient { get; set; }
 
         public decimal BonusСoefficientForSubordinates { get; set; }
+        public int NumberSubordinatesLevelsForBonus { get; set; }
 
         public virtual ICollection<Worker> Workers { get; set; }
 

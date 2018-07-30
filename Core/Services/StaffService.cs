@@ -24,7 +24,7 @@ namespace Core.Services
         public WorkerViewModel GetWorkerByEmail(string email)
         {
             Worker worker = _data.GetSingleWorkerByEmail(email);
-            var result = GetWorkerViewModelWithSalary(worker);
+            var result = GetFullWorkerViewModel(worker, DateTime.Now);
             return result;
         }
 
@@ -35,7 +35,7 @@ namespace Core.Services
             foreach (var subordinate in worker.Subordinates)
             {
                 if (_data.IsWorkerActive(subordinate.Id, DateTime.Now))
-                    result.Add(GetWorkerViewModelWithSalary(subordinate));
+                    result.Add(GetFullWorkerViewModel(subordinate, DateTime.Now));
             }
 
             return result;
@@ -43,26 +43,43 @@ namespace Core.Services
 
         #region private
 
-        private WorkerViewModel GetWorkerViewModelWithSalary(Worker worker)
+        private WorkerViewModel GetFullWorkerViewModel(Worker worker, DateTime calculationDate)
         {
             var result = _mapper.Map<WorkerViewModel>(worker);
-            decimal salary = GetSalary(worker);
-            result.Salary = salary;
+            result.Salary = GetSalary(worker, calculationDate);
+            result.IsWork = _data.IsWorkerActive(worker.Id, calculationDate);
+            result.SeniorityFullYears = GetSeniorityFullYears(worker, calculationDate);
+
             return result;
         }
 
-        private decimal GetSalary(Worker worker)
+        private decimal GetSalary(Worker worker, DateTime calculationDate)
         {
-            int seniorityFullYears = GetSeniorityFullYears(worker, DateTime.Today);
+            int seniorityFullYears = GetSeniorityFullYears(worker, calculationDate);
             decimal result = worker.Position.BaseSalary * (1 +
                              Math.Min(worker.Position.SeniorityBonusСoefficient * seniorityFullYears,
                                       worker.Position.MaxTotalSeniorityBonusСoefficient));
 
             if (worker.Position.BonusСoefficientForSubordinates != 0)
-                foreach (var subordinate in worker.Subordinates)
-                    result += GetSalary(subordinate) * worker.Position.BonusСoefficientForSubordinates;
+            {
+                List<Worker> currentLevel = new List<Worker>();
+                currentLevel.Add(worker);
+                for (var i = 0; i < worker.Position.NumberSubordinatesLevelsForBonus; i++)
+                {
+                    foreach (var currentLevelWorker in currentLevel)
+                    {
+                        List<Worker> nextLevel = new List<Worker>();
+                        foreach (var nextLevelWorker in currentLevelWorker.Subordinates)
+                        {
+                            nextLevel.Add(nextLevelWorker);
+                            result += GetSalary(nextLevelWorker, calculationDate) * worker.Position.BonusСoefficientForSubordinates;
+                        }
+                        currentLevel = nextLevel;
+                    }
+                }
+            }
 
-            return result;
+            return decimal.Round(result, 2);
         }
 
         private int GetSeniorityFullYears(Worker worker, DateTime calculationDate)
@@ -70,8 +87,8 @@ namespace Core.Services
             int seniorityDays = GetSeniorityDays(worker.WorkPeriods, calculationDate.Date);
             int result = 0;
             //если стаж >4 лет, учитываем високосный день
-            result += (seniorityDays /= (365 * 4 + 1)) * 4;
-            result += seniorityDays / 365;
+            result += (seniorityDays / (365 * 4 + 1)) * 4;
+            result += (seniorityDays % (365 * 4 + 1)) / 365;
             return result;
         }
 

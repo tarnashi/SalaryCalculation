@@ -30,7 +30,7 @@ namespace Core.Services
 
         public Worker GetSingleWorkerByEmail(string email)
         {
-            return _ctx.Workers.SingleOrDefault();
+            return _ctx.Workers.SingleOrDefault(w => w.Email == email);
         }
 
         public Worker GetWorkerById(int workerId)

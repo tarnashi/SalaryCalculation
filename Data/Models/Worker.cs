@@ -21,6 +21,7 @@ namespace Data.Models
         public string PasswordHash { get; set; }
 
         public int PositionId { get; set; }
+        [ForeignKey("PositionId")]
         public virtual Position Position { get; set; }
 
         public virtual ICollection<AccessRole> AccessRoles { get; set; }
