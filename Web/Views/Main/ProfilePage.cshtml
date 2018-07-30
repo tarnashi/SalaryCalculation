@@ -17,6 +17,9 @@
                 @Html.DisplayNameFor(model => model.MiddleName)
             </th>
             <th>
+                @Html.DisplayNameFor(model => model.Position)
+            </th>
+            <th>
                 @Html.DisplayNameFor(model => model.Email)
             </th>
             <th>
@@ -37,6 +40,9 @@
             </td>
             <td>
                 <span>@Model.MiddleName</span>
+            </td>
+            <td>
+                <span>@Model.Position</span>
             </td>
             <td>
                 <span>@Model.Email</span>
@@ -67,6 +73,9 @@
                     @Html.DisplayNameFor(model => model.MiddleName)
                 </th>
                 <th>
+                    @Html.DisplayNameFor(model => model.Position)
+                </th>
+                <th>
                     @Html.DisplayNameFor(model => model.Email)
                 </th>
                 <th>
@@ -89,6 +98,9 @@
                     </td>
                     <td>
                         <span>@item.MiddleName</span>
+                    </td>
+                    <td>
+                        <span>@item.Position</span>
                     </td>
                     <td>
                         <span>@item.Email</span>

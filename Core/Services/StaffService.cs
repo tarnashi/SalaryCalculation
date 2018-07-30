@@ -93,6 +93,7 @@ namespace Core.Services
             result.Salary = GetSalary(worker, calculationDate);
             result.IsWork = _data.IsWorkerActive(worker.Id, calculationDate);
             result.SeniorityFullYears = GetSeniorityFullYears(worker, calculationDate);
+            result.Position = worker.Position.DisplayName;
 
             return result;
         }

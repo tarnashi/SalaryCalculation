@@ -19,6 +19,8 @@ namespace Core.ViewModels
         public string FullName { get; set; }
         public string Email { get; set; }
 
+        [DisplayName("Должность")]
+        public string Position { get; set; }
         [DisplayName("Стаж")]
         public int SeniorityFullYears { get; set; }
         [DisplayName("Зарплата")]
