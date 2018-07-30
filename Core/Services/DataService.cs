@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Core.Abstract;
 using Data.DataAccess;
@@ -36,6 +37,37 @@ namespace Core.Services
         public Worker GetWorkerById(int workerId)
         {
             return _ctx.Workers.Find(workerId);
+        }
+
+        public bool IsWorkerSuperior(int superiorId, int subordinateId)
+        {
+            Worker subordinate = GetWorkerById(subordinateId);
+
+            var currentSuperior = subordinate.Superior;
+
+            int noEndlessLoop = 1000;
+            while (currentSuperior != null)
+            {
+                if (currentSuperior.Id == superiorId)
+                    return true;
+                else
+                    currentSuperior = currentSuperior.Superior;
+
+                noEndlessLoop--;
+                if (noEndlessLoop < 0)
+                    break;
+            }
+            return false;
+        }
+
+        public List<Worker> GetWorkers()
+        {
+            return _ctx.Workers.ToList();
+        }
+
+        public List<Position> GetPositions()
+        {
+            return _ctx.Positions.ToList();
         }
     }
 }

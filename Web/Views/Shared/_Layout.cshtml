@@ -18,16 +18,23 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item active">
-                    <a class="nav-link" href="#">Мои данные</a>
+                    <a class="nav-link" href="/">Мои данные</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Сотрудники</a>
+                    <a class="nav-link" href="/Staff/Workers">Сотрудники</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Должности</a>
+                    <a class="nav-link" href="/Staff/Positions">Должности</a>
                 </li>
             </ul>
         </div>
+        @{
+            string login = HttpContext.Current.User.Identity.Name;
+            if (!string.IsNullOrWhiteSpace(login))
+            {
+                <span class="float-right">Здравствуйте, @login | <a href="/Account/Logout">Выйти</a></span>
+            }
+        }
     </nav>
 
     <div class="container">

@@ -10,5 +10,8 @@ namespace Core.Abstract
         bool IsWorkerActive(int workerId, DateTime dateTime);
         Worker GetSingleWorkerByEmail(string email);
         Worker GetWorkerById(int workerId);
+        bool IsWorkerSuperior(int superiorId, int subordinateId);
+        List<Worker> GetWorkers();
+        List<Position> GetPositions();
     }
 }

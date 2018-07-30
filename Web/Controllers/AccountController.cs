@@ -31,7 +31,7 @@ namespace Web.Controllers
                 if (_access.CheckLogin(loginViewModel.Login, loginViewModel.Password))
                 {
                     FormsAuthentication.SetAuthCookie(loginViewModel.Login, false);
-                    return Redirect(returnUrl ?? Url.Action("Main", "Profile"));
+                    return Redirect(returnUrl ?? Url.Action("ProfilePage", "Main"));
                 }
                 ModelState.AddModelError("", "Invalid authentication");
             }

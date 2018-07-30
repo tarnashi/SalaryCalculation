@@ -1,0 +1,106 @@
+﻿@model Core.ViewModels.WorkerViewModel
+
+@{
+    ViewBag.Title = "Профиль";
+}
+<h3>Данные сотрудника</h3>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.LastName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FirstName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MiddleName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Email)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Salary)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SeniorityFullYears)
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>
+                <span>@Model.LastName</span>
+            </td>
+            <td>
+                <span>@Model.FirstName</span>
+            </td>
+            <td>
+                <span>@Model.MiddleName</span>
+            </td>
+            <td>
+                <span>@Model.Email</span>
+            </td>
+            <td>
+                <span>@Model.Salary</span>
+            </td>
+            <td>
+                <span>@Model.SeniorityFullYears</span>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+@if ((ViewData["subordinates"] as IEnumerable<Core.ViewModels.WorkerViewModel>).Any())
+{
+    <h3>Непосредственные подчиненные</h3>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.LastName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.FirstName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.MiddleName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Email)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Salary)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.SeniorityFullYears)
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in ViewData["subordinates"] as IEnumerable<Core.ViewModels.WorkerViewModel>)
+            {
+                <tr>
+                    <td>
+                        <span><a href="/Main/ShowProfile/@item.Id")">@item.LastName</a></span>
+                    </td>
+                    <td>
+                        <span>@item.FirstName</span>
+                    </td>
+                    <td>
+                        <span>@item.MiddleName</span>
+                    </td>
+                    <td>
+                        <span>@item.Email</span>
+                    </td>
+                    <td>
+                        <span>@item.Salary</span>
+                    </td>
+                    <td>
+                        <span>@item.SeniorityFullYears</span>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}

@@ -8,5 +8,6 @@ namespace Core.Abstract
     {
         bool CheckLogin(string login, string passwordHash);
         bool CheckUserRole(string login, string role);
+        bool MayViewProfile(string login, int workerId);
     }
 }

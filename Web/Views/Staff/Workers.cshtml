@@ -1,0 +1,74 @@
+﻿@model IEnumerable<Core.ViewModels.WorkerViewModel>
+
+@{
+    ViewBag.Title = "Сотрудники";
+}
+
+<div>
+    <table style="width: 100%">
+        <tr>
+            <td>
+                <h3>Сотрудники</h3>
+            </td>
+            <td>
+                <a class="float-right" href="/Staff/AddWorker">Добавить сотрудника</a>
+            </td>
+        </tr>
+    </table>
+</div>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.LastName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FirstName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MiddleName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Email)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Salary)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SeniorityFullYears)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IsWork)
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    <span><a href="/Main/ShowProfile/@item.Id" )">@item.LastName</a></span>
+                </td>
+                <td>
+                    <span>@item.FirstName</span>
+                </td>
+                <td>
+                    <span>@item.MiddleName</span>
+                </td>
+                <td>
+                    <span>@item.Email</span>
+                </td>
+                <td>
+                    <span>@item.Salary</span>
+                </td>
+                <td>
+                    <span>@item.SeniorityFullYears</span>
+                </td>
+                <td>
+                    <span>@item.IsWork</span>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

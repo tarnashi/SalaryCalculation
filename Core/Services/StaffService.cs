@@ -24,7 +24,7 @@ namespace Core.Services
         public WorkerViewModel GetWorkerByEmail(string email)
         {
             Worker worker = _data.GetSingleWorkerByEmail(email);
-            var result = GetFullWorkerViewModel(worker, DateTime.Now);
+            var result = GetFullWorkerViewModel(worker, DateTime.Today);
             return result;
         }
 
@@ -34,11 +34,38 @@ namespace Core.Services
             var worker = _data.GetWorkerById(workerId);
             foreach (var subordinate in worker.Subordinates)
             {
-                if (_data.IsWorkerActive(subordinate.Id, DateTime.Now))
-                    result.Add(GetFullWorkerViewModel(subordinate, DateTime.Now));
+                if (_data.IsWorkerActive(subordinate.Id, DateTime.Today))
+                    result.Add(GetFullWorkerViewModel(subordinate, DateTime.Today));
             }
 
             return result;
+        }
+
+        public WorkerViewModel GetWorkerById(int workerId)
+        {
+            Worker worker = _data.GetWorkerById(workerId);
+            var result = GetFullWorkerViewModel(worker, DateTime.Today);
+            return result;
+        }
+
+        public List<WorkerViewModel> GetWorkers()
+        {
+            List<WorkerViewModel> result = new List<WorkerViewModel>();
+            var workers = _data.GetWorkers();
+            foreach (var worker in workers)
+                result.Add(GetFullWorkerViewModel(worker, DateTime.Today));
+
+            return result;
+        }
+
+        public List<PositionViewModel> GetPositions()
+        {
+            return _data.GetPositions().Select(p => _mapper.Map<PositionViewModel>(p)).ToList();
+        }
+
+        public void AddWorker(NewWorkerModel workerModel)
+        {
+            Worker worker = _mapper.Map<Worker>(workerModel);
         }
 
         #region private

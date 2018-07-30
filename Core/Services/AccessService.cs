@@ -33,7 +33,26 @@ namespace Core.Services
         {
             Worker worker = _data.GetSingleWorkerByEmail(login);
 
-            return worker?.AccessRoles.Any(r => r.Name == "superuser" || r.Name == role) ?? false;
+            if (IsSuperUser(worker))
+                return true;
+
+            return worker?.AccessRoles.Any(r => r.Name == role) ?? false;
+        }
+
+        //смотреть профиль может или начальник любого уровня иерархии, или суперпользователь
+        public bool MayViewProfile(string login, int workerId)
+        {
+            Worker currentWorker = _data.GetSingleWorkerByEmail(login);
+
+            if (IsSuperUser(currentWorker))
+                return true;
+
+            return _data.IsWorkerSuperior(currentWorker.Id, workerId);
+        }
+
+        private bool IsSuperUser(Worker worker)
+        {
+            return worker?.AccessRoles.Any(r => r.Name == "superuser") ?? false;
         }
     }
 }

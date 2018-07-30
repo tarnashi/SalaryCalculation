@@ -1,0 +1,63 @@
+﻿@model IEnumerable<Core.ViewModels.PositionViewModel>
+
+@{
+    ViewBag.Title = "Должности";
+}
+
+<h3>Должности</h3>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.DisplayName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MayHaveSubordinates)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.BaseSalary)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SeniorityBonusСoefficient)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MaxTotalSeniorityBonusСoefficient)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.BonusСoefficientForSubordinates)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.NumberSubordinatesLevelsForBonus)
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+        <tr>
+            <td>
+                <span>@item.DisplayName</span>
+            </td>
+            <td>
+                <span>@item.MayHaveSubordinates</span>
+            </td>
+            <td>
+                <span>@item.BaseSalary</span>
+            </td>
+            <td>
+                <span>@item.SeniorityBonusСoefficient</span>
+            </td>
+            <td>
+                <span>@item.MaxTotalSeniorityBonusСoefficient</span>
+            </td>
+            <td>
+                <span>@item.BonusСoefficientForSubordinates</span>
+            </td>
+            <td>
+                <span>@item.NumberSubordinatesLevelsForBonus</span>
+            </td>
+        </tr>
+        }
+    </tbody>
+</table>

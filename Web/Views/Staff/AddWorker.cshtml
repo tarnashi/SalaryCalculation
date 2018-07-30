@@ -1,0 +1,47 @@
+﻿@model Core.ViewModels.NewWorkerModel
+
+@{
+    ViewBag.Title = "Новый сотрудник";
+}
+
+<h3>Новый сотрудник</h3>
+
+<div class="addPerson">
+    <input class="add" id="lastName" name="LastName" type="text" placeholder="Фамилия">
+    <input class="add" id="firstName" name="FirstName" type="text" placeholder="Имя">
+    <input class="add" id="middleName" name="MiddleName" type="text" placeholder="Отчество">
+    <input class="add" id="email" name="Email" type="text" placeholder="E-mail">
+    <input class="add" id="password" name="Password" type="text" placeholder="Пароль">
+    <input class="add" id="position" name="PositionId" type="text" placeholder="Должность">
+    <input class="add" id="superior" name="SuperiorId" type="text" placeholder="Начальник">
+    <button class="addButton" onclick='addWorker()'>Добавить сотрудника</button>
+</div>
+
+@*<div>
+    @using (Html.BeginForm("AddWorker", "WorkerApi", FormMethod.Post))
+    {
+        <div>
+            @Html.ValidationSummary()
+        </div>
+        <div>
+            @Html.LabelFor(m => m.LastName)
+            @Html.TextBoxFor(m => m.LastName, new { @class = "form-control" })
+        </div>
+        <div>
+            @Html.LabelFor(m => m.FirstName)
+            @Html.TextBoxFor(m => m.FirstName, new { @class = "form-control" })
+        </div>
+        <div>
+            @Html.LabelFor(m => m.MiddleName)
+            @Html.TextBoxFor(m => m.MiddleName, new { @class = "form-control" })
+        </div>
+        <div>
+            @Html.LabelFor(m => m.Email)
+            @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
+        </div>
+        <br />
+        <div>
+            <input type="submit" value="Добавить" class="btn btn-primary" />
+        </div>
+    }
+</div>*@

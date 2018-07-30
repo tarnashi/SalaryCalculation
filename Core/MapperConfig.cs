@@ -11,6 +11,7 @@ namespace Core
             var config = new MapperConfiguration(cfg =>
             {
                 cfg.CreateMap<Worker, WorkerViewModel>().ReverseMap();
+                cfg.CreateMap<Position, PositionViewModel>().ReverseMap();
             });
 
             return config;

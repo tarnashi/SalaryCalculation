@@ -3,12 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Core.Abstract;
+using Core.ViewModels;
 using Data.Models;
 
 namespace Core.Services
 {
     public class ValidationService : IValidationService
     {
+
+
         public bool ValidateWorkPeriods(ICollection<WorkPeriod> workPeriods)
         {
             var listPeriods = workPeriods.ToList();
@@ -33,7 +36,11 @@ namespace Core.Services
                     }
                 }
             }
+            return true;
+        }
 
+        public bool ValidateNewWorkerModel(NewWorkerModel newWorkerModel)
+        {
             return true;
         }
     }
