@@ -58,6 +58,17 @@ namespace Core.Services
             return result;
         }
 
+        public List<WorkerViewModel> GetWorkersMayHaveSubordinates()
+        {
+            List<WorkerViewModel> result = new List<WorkerViewModel>();
+            var workers = _data.GetWorkers().Where(w => w.Position.MayHaveSubordinates).ToList();
+            foreach (var worker in workers)
+            {
+                result.Add(_mapper.Map<WorkerViewModel>(worker));
+            }
+            return result;
+        }
+
         public List<PositionViewModel> GetPositions()
         {
             return _data.GetPositions().Select(p => _mapper.Map<PositionViewModel>(p)).ToList();
@@ -66,6 +77,12 @@ namespace Core.Services
         public void AddWorker(NewWorkerModel workerModel)
         {
             Worker worker = _mapper.Map<Worker>(workerModel);
+            List<WorkPeriod> workPeriods = new List<WorkPeriod>
+            {
+                new WorkPeriod { StartDate = DateTime.Today, FinishDate = null }
+            };
+            worker.WorkPeriods = workPeriods;
+            _data.AddWorker(worker);
         }
 
         #region private
@@ -89,18 +106,19 @@ namespace Core.Services
 
             if (worker.Position.BonusСoefficientForSubordinates != 0)
             {
-                List<Worker> currentLevel = new List<Worker>();
-                currentLevel.Add(worker);
+                List<Worker> currentLevel = new List<Worker> { worker };
                 for (var i = 0; i < worker.Position.NumberSubordinatesLevelsForBonus; i++)
                 {
                     foreach (var currentLevelWorker in currentLevel)
                     {
                         List<Worker> nextLevel = new List<Worker>();
                         foreach (var nextLevelWorker in currentLevelWorker.Subordinates)
-                        {
-                            nextLevel.Add(nextLevelWorker);
-                            result += GetSalary(nextLevelWorker, calculationDate) * worker.Position.BonusСoefficientForSubordinates;
-                        }
+                            //не считаем неработающих сотрудников
+                            if (_data.IsWorkerActive(nextLevelWorker, calculationDate))
+                            {
+                                nextLevel.Add(nextLevelWorker);
+                                result += GetSalary(nextLevelWorker, calculationDate) * worker.Position.BonusСoefficientForSubordinates;
+                            }
                         currentLevel = nextLevel;
                     }
                 }

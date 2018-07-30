@@ -28,6 +28,10 @@ namespace Web.Controllers
 
         public ActionResult AddWorker()
         {
+            ViewBag.Positions = _staff.GetPositions();
+            var superiors = _staff.GetWorkersMayHaveSubordinates();
+            superiors.Insert(0, new WorkerViewModel{Id = 0, FullName = "Нет"});
+            ViewBag.Superiors = superiors;
             return View();
         }
 

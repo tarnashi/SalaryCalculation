@@ -16,14 +16,14 @@ namespace Core.Services
             _data = data;
         }
 
-        public bool CheckLogin(string login, string passwordHash)
+        public bool CheckLogin(string login, string password)
         {
             Worker worker = _data.GetSingleWorkerByEmail(login);
             if (worker != null)
             {
                 if (!_data.IsWorkerActive(worker.Id, DateTime.Now))
                     return false;
-                return (worker.PasswordHash == passwordHash);
+                return (worker.PasswordHash.ToLower() == CreateMd5(password).ToLower());
             }
 
             return false;
@@ -53,6 +53,24 @@ namespace Core.Services
         private bool IsSuperUser(Worker worker)
         {
             return worker?.AccessRoles.Any(r => r.Name == "superuser") ?? false;
+        }
+
+        public static string CreateMd5(string input)
+        {
+            // Use input string to calculate MD5 hash
+            using (System.Security.Cryptography.MD5 md5 = System.Security.Cryptography.MD5.Create())
+            {
+                byte[] inputBytes = System.Text.Encoding.ASCII.GetBytes(input);
+                byte[] hashBytes = md5.ComputeHash(inputBytes);
+
+                // Convert the byte array to hexadecimal string
+                StringBuilder sb = new StringBuilder();
+                for (int i = 0; i < hashBytes.Length; i++)
+                {
+                    sb.Append(hashBytes[i].ToString("X2"));
+                }
+                return sb.ToString();
+            }
         }
     }
 }

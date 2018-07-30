@@ -24,6 +24,11 @@ namespace Core.Services
         public bool IsWorkerActive(int workerId, DateTime dateTime)
         {
             Worker worker = _ctx.Workers.Find(workerId);
+            return IsWorkerActive(worker, dateTime);
+        }
+
+        public bool IsWorkerActive(Worker worker, DateTime dateTime)
+        {
             return worker.WorkPeriods.Any(p =>
                 p.StartDate.Date <= dateTime.Date &&
                 !p.FinishDate.HasValue || dateTime <= (p.FinishDate ?? dateTime));
@@ -68,6 +73,12 @@ namespace Core.Services
         public List<Position> GetPositions()
         {
             return _ctx.Positions.ToList();
+        }
+
+        public void AddWorker(Worker worker)
+        {
+            _ctx.Workers.Add(worker);
+            _ctx.SaveChanges();
         }
     }
 }

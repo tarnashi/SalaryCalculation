@@ -6,7 +6,7 @@ namespace Core.Abstract
 {
     public interface IAccessService
     {
-        bool CheckLogin(string login, string passwordHash);
+        bool CheckLogin(string login, string password);
         bool CheckUserRole(string login, string role);
         bool MayViewProfile(string login, int workerId);
     }

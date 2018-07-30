@@ -12,6 +12,7 @@ namespace Core.Abstract
         WorkerViewModel GetWorkerById(int workerId);
         List<WorkerViewModel> GetActiveSubordinates(int workerId);
         List<WorkerViewModel> GetWorkers();
+        List<WorkerViewModel> GetWorkersMayHaveSubordinates();
         List<PositionViewModel> GetPositions();
         void AddWorker(NewWorkerModel workerModel);
     }

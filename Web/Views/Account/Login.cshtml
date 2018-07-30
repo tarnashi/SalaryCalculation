@@ -7,7 +7,7 @@
 <h2>Login</h2>
 
 <div>
-    @using (Html.BeginForm())
+    @using (Html.BeginForm("Login", "Account", FormMethod.Post))
     {
         <div>
             @Html.ValidationSummary()

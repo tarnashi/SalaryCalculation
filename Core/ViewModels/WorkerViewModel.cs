@@ -15,6 +15,8 @@ namespace Core.ViewModels
         public string FirstName { get; set; }
         [DisplayName("Отчество")]
         public string MiddleName { get; set; }
+        [DisplayName("Полное имя")]
+        public string FullName { get; set; }
         public string Email { get; set; }
 
         [DisplayName("Стаж")]
